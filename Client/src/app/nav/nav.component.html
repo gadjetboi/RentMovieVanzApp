@@ -9,11 +9,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Top 20</a>
                 </li>
+                <ng-container *ngIf="(currentToken$ | async ) === null">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/register">Register</a>
+                    </li>
+                </ng-container>
+                <ng-container *ngIf="(currentToken$ | async )">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/member">Member</a>
+                    </li>
+                </ng-container>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/register">Register</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" routerLink="/aboutus">About Us</a>
+                    <a class="nav-link" routerLink="/aboutus">About Us</a>
                 </li>
             </ul>
             
@@ -27,7 +34,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavDarkDropdown" dropdown>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" dropdownToggle  href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown">
+                            <a class="nav-link dropdown-toggle" dropdownToggle routerLink="/member" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown">
                             Welcome Vanz
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark" *dropdownMenu>
