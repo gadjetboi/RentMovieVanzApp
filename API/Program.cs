@@ -19,7 +19,7 @@ builder.Services.AddCors();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {         
-    options.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
 });
 
 // For Identity

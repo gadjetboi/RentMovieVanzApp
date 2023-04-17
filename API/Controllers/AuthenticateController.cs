@@ -30,101 +30,125 @@ namespace API.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await _userManager.FindByNameAsync(model.Username);
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
-            {
-                var userRoles = await _userManager.GetRolesAsync(user);
+            try {
+                var user = await _userManager.FindByNameAsync(model.Username);
+                if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+                {
+                    var userRoles = await _userManager.GetRolesAsync(user);
 
-                var authClaims = new List<Claim>
+                    var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
-                foreach (var userRole in userRoles)
-                {
-                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                    foreach (var userRole in userRoles)
+                    {
+                        authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                    }
+
+                    var token = GetToken(authClaims);
+
+                    return Ok(new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        expiration = token.ValidTo
+                    });
                 }
-
-                var token = GetToken(authClaims);
-
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
-                });
+                return Unauthorized();
             }
-            return Unauthorized();
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var userExists = await _userManager.FindByNameAsync(model.Username);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new ResponseModel { Status = "Error", Message = "User already exists!" });
+            try {
+                var userExists = await _userManager.FindByNameAsync(model.Username);
+                if (userExists != null)
+                    return StatusCode(StatusCodes.Status500InternalServerError, new ResponseModel { Status = "Error", Message = "User already exists!" });
 
-            IdentityUser user = new()
+                IdentityUser user = new()
+                {
+                    Email = model.Email,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    UserName = model.Username
+                };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (!result.Succeeded)
+                    return StatusCode(StatusCodes.Status500InternalServerError, new ResponseModel { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+
+                return Ok(new ResponseModel { Status = "Success", Message = "User created successfully!" });
+            }
+            catch (Exception ex)
             {
-                Email = model.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
-            };
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new ResponseModel { Status = "Error", Message = "User creation failed! Please check user details and try again." });
-
-            return Ok(new ResponseModel { Status = "Success", Message = "User created successfully!" });
+                return BadRequest(ex);
+            }
         }
 
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
         {
-            var userExists = await _userManager.FindByNameAsync(model.Username);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new ResponseModel { Status = "Error", Message = "User already exists!" });
+            try {
+                var userExists = await _userManager.FindByNameAsync(model.Username);
+                if (userExists != null)
+                    return StatusCode(StatusCodes.Status500InternalServerError, new ResponseModel { Status = "Error", Message = "User already exists!" });
 
-            IdentityUser user = new()
-            {
-                Email = model.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
-            };
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new ResponseModel { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                IdentityUser user = new()
+                {
+                    Email = model.Email,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    UserName = model.Username
+                };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (!result.Succeeded)
+                    return StatusCode(StatusCodes.Status500InternalServerError, new ResponseModel { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
-            if (!await _roleManager.RoleExistsAsync(Constant.UserRoles.Admin))
-                await _roleManager.CreateAsync(new IdentityRole(Constant.UserRoles.Admin));
-            if (!await _roleManager.RoleExistsAsync(Constant.UserRoles.User))
-                await _roleManager.CreateAsync(new IdentityRole(Constant.UserRoles.User));
+                if (!await _roleManager.RoleExistsAsync(Constant.UserRoles.Admin))
+                    await _roleManager.CreateAsync(new IdentityRole(Constant.UserRoles.Admin));
+                if (!await _roleManager.RoleExistsAsync(Constant.UserRoles.User))
+                    await _roleManager.CreateAsync(new IdentityRole(Constant.UserRoles.User));
 
-            if (await _roleManager.RoleExistsAsync(Constant.UserRoles.Admin))
-            {
-                await _userManager.AddToRoleAsync(user, Constant.UserRoles.Admin);
+                if (await _roleManager.RoleExistsAsync(Constant.UserRoles.Admin))
+                {
+                    await _userManager.AddToRoleAsync(user, Constant.UserRoles.Admin);
+                }
+                if (await _roleManager.RoleExistsAsync(Constant.UserRoles.Admin))
+                {
+                    await _userManager.AddToRoleAsync(user, Constant.UserRoles.User);
+                }
+                return Ok(new ResponseModel { Status = "Success", Message = "User created successfully!" });
             }
-            if (await _roleManager.RoleExistsAsync(Constant.UserRoles.Admin))
+            catch (Exception ex)
             {
-                await _userManager.AddToRoleAsync(user, Constant.UserRoles.User);
+                return BadRequest(ex);
             }
-            return Ok(new ResponseModel { Status = "Success", Message = "User created successfully!" });
         }
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+            try {
+                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 
-            var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:ValidIssuer"],
-                audience: _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddHours(3),
-                claims: authClaims,
-                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                );
+                var token = new JwtSecurityToken(
+                    issuer: _configuration["JWT:ValidIssuer"],
+                    audience: _configuration["JWT:ValidAudience"],
+                    expires: DateTime.Now.AddHours(3),
+                    claims: authClaims,
+                    signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+                    );
 
-            return token;
+                return token;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

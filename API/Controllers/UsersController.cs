@@ -17,30 +17,43 @@ namespace API.Controllers
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserModel>>> GetUsers() {
-            
-            var results = await (from u in _dbContext.Users
-                        orderby u.FirstName
-                        select new UserModel()
-                        {
-                            Id = u.Id,
-                            FirstName = u.FirstName
-                        }).ToListAsync();
 
-            return results;
+            try {
+                var results = await (from u in _dbContext.Users
+                                     orderby u.FirstName
+                                     select new UserModel()
+                                     {
+                                         Id = u.Id,
+                                         FirstName = u.FirstName
+                                     }).ToListAsync();
+
+                return results;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<UserModel>> GetUser(int id) {
-            
-            var result = await (from u in _dbContext.Users
-                                where u.Id == id
-                                select new UserModel()
-                                {
-                                    Id = u.Id,
-                                    FirstName = u.FirstName
-                                }).FirstOrDefaultAsync();
 
-            return result;
+            try
+            {
+                var result = await (from u in _dbContext.Users
+                                    where u.Id == id
+                                    select new UserModel()
+                                    {
+                                        Id = u.Id,
+                                        FirstName = u.FirstName
+                                    }).FirstOrDefaultAsync();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
     }
 }
