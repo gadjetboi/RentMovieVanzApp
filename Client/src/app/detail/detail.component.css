@@ -1,0 +1,31 @@
+html {
+    scroll-behavior: smooth; 
+}
+ 
+body {
+    margin: 0;
+    background-color: #000;
+    font-family: Arial; 
+}
+
+h1 {
+    color: red;
+    font-size: 1.60em;
+}
+
+.option {
+    margin: 10px;
+    padding: 10px;
+}
+
+.option label {
+    margin: 10px;
+}
+.option .fa {
+ font-size: 3em;
+}
+
+button {
+   margin: 10px;
+}
+    

@@ -12,6 +12,7 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { RegisterComponent } from './register/register.component';
 import { MemberComponent } from './member/member.component';
 import { SharedModule } from './_modules/shared.module';
+import { DetailComponent } from './detail/detail.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SharedModule } from './_modules/shared.module';
     HomeComponent,
     AboutusComponent,
     RegisterComponent,
-    MemberComponent
+    MemberComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,
