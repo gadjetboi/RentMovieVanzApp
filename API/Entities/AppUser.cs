@@ -1,8 +1,15 @@
+using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace API.Entities
 {
-    public class AppUser
+    public class AppUser : IdentityUser<int>
     {
-        public int Id { get; set; }
-        public string? FirstName { get; set; }
+        [NotMapped]
+        public string FirstName { get; set; }
+        public DateTime Created { get; set; } = DateTime.UtcNow;
+        public DateTime LastActive { get; set; } = DateTime.UtcNow;
+        [NotMapped]
+        public ICollection<AppUserRole> UserRoles { get; set; }
     }
 }

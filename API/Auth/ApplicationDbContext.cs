@@ -13,8 +13,15 @@ namespace API.Auth
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            //builder.Entity<AppRole>()
+            //    .HasNoKey();
+
+            //builder.Entity<AppUserRole>()
+            //    .HasNoKey();
         }
 
         public DbSet<AppUser>? Users { get; set; }
+        public DbSet<Movie> Movies { get; set; }
     }
 }
