@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MovieModel } from '../_models/movieModel';
+import { MovieService } from '../_services/movie.service';
 
 @Component({
   selector: 'app-detail',
@@ -6,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
+  movie: MovieModel = {} as MovieModel;
+  userId: number;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private movieService: MovieService) { }
 
   ngOnInit(): void {
+
+    let id = this.route.snapshot.params.id;
+
+     this.movieService.getMovieById(id).subscribe({
+      next: data => this.movie = data
+    });
+    
   }
 
 }

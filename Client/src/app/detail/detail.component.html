@@ -1,17 +1,16 @@
 <div class="movie_main">
     <div class="p-5 mb-4 bg-body-tertiary rounded-3">
         <div class="container-fluid py-5">
-            <h1 class="display-5 fw-bold">Russian Doll</h1>
+            <h1 class="display-5 fw-bold">{{movie.title}}</h1>
             <img
-                src="https://occ-0-243-299.1.nflxso.net/dnm/api/v5/rendition/412e4119fb212e3ca9f1add558e2e7fed42f8fb4/AAAABZEK-7pZ1H5FD4cTyUb9qB_KeyJGz5p-kfPhCFv4GU_3mbdm8Xfsy4IBchlG9PFNdGff8cBNPaeMra72VFnot41nt0y3e8RLgaVwwh3UvyM2H2_MkmadWbQUeGuf811K7-cxJJh7gA.jpg"
+                src="{{movie.mainPhotoPath}}"
                 alt="Describe Image">
-            <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
-            <div class="option">
+             <div class="option">
                 <i class="fa fa-camera-retro"></i><label>Watch Trailer</label>
             </div>
             <div class="summary">
                 <h1 class="display-5 fw-bold">Summary</h1>
-                <div class="content">Magic' Mike Lane takes to the stage again after a lengthy hiatus, following a business deal that went bust, leaving him broke and taking bartender gigs in Florida. For what he hopes will be one last hurrah, Mike heads to London with a wealthy sociali</div>
+                <div class="content">{{movie.description}}</div>
             </div>
            
             <button class="btn btn btn-dark btn-md">RENT</button>
