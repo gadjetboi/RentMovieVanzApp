@@ -1,0 +1,7 @@
+<div class="video-player-wrapper">
+    <vg-player (onPlayerReady)="onPlayerReady($event)">
+        <video #media [vgMedia]="media" id="singleVideo" preload="auto" controls crossorigin>
+          <source src={{videos[0].sources.src}} type="video/webm">
+        </video>
+    </vg-player>
+</div>

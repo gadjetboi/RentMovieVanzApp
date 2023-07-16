@@ -1,13 +1,19 @@
+
 <div class="movie_main">
     <div class="p-5 mb-4 bg-body-tertiary rounded-3">
         <div class="container-fluid py-5">
             <h1 class="display-5 fw-bold">{{movie.title}}</h1>
             <img
                 src="{{movie.mainPhotoPath}}"
-                alt="Describe Image">
-             <div class="option">
-                <i class="fa fa-camera-retro"></i><label>Watch Trailer</label>
+                alt="Describe Image" />
+            <div *ngIf="showTrailer">
+                <br />
+                <app-videogular *ngIf="isContentAvailable" [videoPath]="movie.trailerPath"></app-videogular>
             </div>
+            <div class="option">
+                <i class="fa fa-camera-retro" (click)="watchTrailer()"></i><label (click)="watchTrailer()">Watch Trailer</label>
+            </div>
+ 
             <div class="summary">
                 <h1 class="display-5 fw-bold">Summary</h1>
                 <div class="content">{{movie.description}}</div>

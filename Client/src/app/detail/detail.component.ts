@@ -11,6 +11,8 @@ import { MovieService } from '../_services/movie.service';
 export class DetailComponent implements OnInit {
   movie: MovieModel = {} as MovieModel;
   userId: number;
+  isContentAvailable: boolean = false;
+  showTrailer: boolean = false;
 
   constructor(private route: ActivatedRoute, private movieService: MovieService) { }
 
@@ -18,10 +20,16 @@ export class DetailComponent implements OnInit {
 
     let id = this.route.snapshot.params.id;
 
-     this.movieService.getMovieById(id).subscribe({
-      next: data => this.movie = data
-    });
-    
+     this.movieService.getMovieById(id).subscribe(
+      (data : MovieModel) =>{
+        this.movie = data;
+        this.isContentAvailable = true;
+      } 
+    );
+  }
+
+  watchTrailer(): void{
+    this.showTrailer = true;
   }
 
 }

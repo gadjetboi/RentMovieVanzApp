@@ -27,7 +27,8 @@ namespace API.Controllers
                                          Id = u.Id,
                                          Title = u.Title,
                                          Description = u.Description,
-                                         MainPhotoPath = u.MainPhotoPath
+                                         MainPhotoPath = u.MainPhotoPath,
+                                         TrailerPath = u.TrailerPath ?? ""
                                      }).ToListAsync();
 
                 return results;
@@ -51,7 +52,8 @@ namespace API.Controllers
                                         Id = u.Id,
                                         Title = u.Title,
                                         Description = u.Description,
-                                        MainPhotoPath = u.MainPhotoPath
+                                        MainPhotoPath = u.MainPhotoPath,
+                                        TrailerPath = u.TrailerPath ?? ""
                                     }).FirstOrDefaultAsync();
 
                 return result;

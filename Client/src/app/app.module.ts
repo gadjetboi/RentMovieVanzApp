@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
+import { VgCoreModule, } from 'ngx-videogular';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,6 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import { MemberComponent } from './member/member.component';
 import { SharedModule } from './_modules/shared.module';
 import { DetailComponent } from './detail/detail.component';
+import { VideogularComponent } from './_common/videogular/videogular.component';
 
 
 @NgModule({
@@ -23,7 +26,8 @@ import { DetailComponent } from './detail/detail.component';
     AboutusComponent,
     RegisterComponent,
     MemberComponent,
-    DetailComponent
+    DetailComponent,
+    VideogularComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,8 @@ import { DetailComponent } from './detail/detail.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    VgCoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

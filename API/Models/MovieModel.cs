@@ -6,5 +6,6 @@
         public string Title { get; set; }
         public string Description { get; set; }
         public string MainPhotoPath { get; set; }
+        public string TrailerPath { get; set; }
     }
 }
