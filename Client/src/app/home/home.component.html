@@ -20,8 +20,8 @@
     
       <section id="section2">
         <a href="#section1" class="arrow__btn left-arrow">‹</a>
-        <div class="item" *ngFor="let movie of moviesSection2;">>
-          <a routerLink="/detail" href="#">
+        <div class="item" *ngFor="let movie of moviesSection2;">
+          <a routerLink="/detail/{{movie.id}}" href="#">
             <img
             src="{{movie.mainPhotoPath}}"
               alt="Describe Image">
@@ -32,8 +32,8 @@
     
       <section id="section3">
         <a href="#section2" class="arrow__btn left-arrow">‹</a>
-        <div class="item" *ngFor="let movie of moviesSection3;">>
-          <a routerLink="/detail" href="#">
+        <div class="item" *ngFor="let movie of moviesSection3;">
+          <a routerLink="/detail/{{movie.id}}" href="#">
             <img
             src="{{movie.mainPhotoPath}}"
               alt="Describe Image">
@@ -43,7 +43,7 @@
       </section>
     </div>
     
-    <h1>Most Popular</h1>
+    <!-- <h1>Most Popular</h1>
     <div class="wrapper">
     
       <section id="msection1">
@@ -163,7 +163,7 @@
     
         <a href="#msection1" class="arrow__btn right-arrow">›</a>
       </section>
-    </div>
+    </div> -->
   </div>
 </div>
 

@@ -45,11 +45,13 @@ export class HomeComponent implements OnInit {
           }
       })
     ).subscribe({
-      next: data => this.moviesSection3 = data
+      next: (data) => { 
+        this.moviesSection3 = data; console.log(this.moviesSection3);
+      }
     });
     
     
-    console.log(this.moviesSection1);
+    
 
   }
 }
