@@ -17,9 +17,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
 
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//{         
+//    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+//});
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{         
-    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+{
+    options.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
 });
 
 // For Identity
