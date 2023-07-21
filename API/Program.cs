@@ -66,7 +66,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:5001", "https://rentmovievanzapp.azurewebsites.net"));
+//app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:5001", "https://rentmovievanzapp.azurewebsites.net"));
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod());
 
 // Authentication & Authorization
 app.UseAuthentication();
