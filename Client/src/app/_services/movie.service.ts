@@ -9,7 +9,7 @@ import { MovieModel } from '../_models/movieModel';
 })
 export class MovieService {
 
-  private baseUrl: string = 'https://localhost:7109/api/';
+  private baseUrl: string = 'https://rentmovievanzappapi.azurewebsites.net/api/';
 
   constructor(private http: HttpClient, private toastr: ToastrService) { }
 

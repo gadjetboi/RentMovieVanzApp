@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AccountService {
 
-  private baseUrl: string = 'https://localhost:7109/api/';
+  private baseUrl: string = 'https://rentmovievanzappapi.azurewebsites.net/api/';
   private currentTokenSource = new ReplaySubject<tokenModel>(1);
   currentToken$ = this.currentTokenSource.asObservable();
 
