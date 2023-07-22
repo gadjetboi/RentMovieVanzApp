@@ -7,6 +7,8 @@ import { map, catchError } from 'rxjs/operators';
 
 import { ToastrService } from 'ngx-toastr';
 
+
+
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
@@ -17,6 +19,7 @@ export class DetailComponent implements OnInit {
   userId: number;
   isContentAvailable: boolean = false;
   showTrailer: boolean = false;
+  isTrailerClose: boolean;
 
   constructor(private route: ActivatedRoute, private router: Router, private movieService: MovieService, private toastr: ToastrService) { }
 
@@ -45,4 +48,7 @@ export class DetailComponent implements OnInit {
     this.showTrailer = true;
   }
 
+  setShowTrailer(isStopVideo: boolean):void{
+    this.showTrailer = (isStopVideo == true) ? false : true;
+  }
 }

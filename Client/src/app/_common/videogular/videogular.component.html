@@ -1,7 +1,28 @@
-<div class="video-player-wrapper">
-    <vg-player (onPlayerReady)="onPlayerReady($event)">
-        <video #media [vgMedia]="media" id="singleVideo" preload="auto" controls crossorigin>
-          <source src={{videos[0].sources.src}} type="video/webm">
-        </video>
-    </vg-player>
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title " >
+                 {{movieData.title}}
+              </h5>
+              <button type="button" class="btn-close" (click)="stopVideo()"
+                      data-bs-dismiss="modal">
+              </button>
+          </div>
+          <div class="modal-body">
+              <div>
+                <br />
+                <div class="video-player-wrapper">
+                    <vg-player (onPlayerReady)="onPlayerReady($event)">
+                        <video #media [vgMedia]="media" id="singleVideo" preload="auto" controls crossorigin>
+                          <source src={{videos[0].sources.src}} type="video/webm">
+                        </video>
+                    </vg-player>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
+
+
