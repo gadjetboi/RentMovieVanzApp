@@ -9,7 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'member', component: MemberComponent, canActivate: [AuthGuard]},
   { path: 'aboutus', component: AboutusComponent},
   { path: 'register', component: RegisterComponent },

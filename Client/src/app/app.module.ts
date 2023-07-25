@@ -16,6 +16,7 @@ import { MemberComponent } from './member/member.component';
 import { SharedModule } from './_modules/shared.module';
 import { DetailComponent } from './detail/detail.component';
 import { VideogularComponent } from './_common/videogular/videogular.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { VideogularComponent } from './_common/videogular/videogular.component';
     FormsModule,
     SharedModule,
     VgCoreModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
