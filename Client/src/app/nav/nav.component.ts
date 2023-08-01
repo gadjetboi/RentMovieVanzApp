@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
   
   currentToken$: Observable<tokenModel>;
-  userModel: userModel = {username: '', password:''};
+  userModel: userModel = {} as userModel;
 
   constructor(public accountService: AccountService, private toastr: ToastrService, private router: Router) { }
 
@@ -30,7 +30,6 @@ export class NavComponent implements OnInit {
         this.clearLoginForm();
         this.router.navigate(['/member']);
      });
-     
   }
 
   logout() {

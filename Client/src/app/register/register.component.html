@@ -30,6 +30,14 @@
                 </div>
 
                 <div class="col-12">
+                  <label for="userName" class="form-label">Email</label>
+                  <input type="text" class="form-control" formControlName="email" email required>
+                  <div class="invalid-feedback" *ngIf="f['email'].touched && f['email'].invalid" class="alert alert-danger">
+                      Email is required.
+                  </div>
+                </div>
+
+                <div class="col-12">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" formControlName="password" (change)="clearConfirmPassword()" required>
                     <div class="invalid-feedback" *ngIf="f['password'].touched && f['password'].invalid" class="alert alert-danger">

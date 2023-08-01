@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { catchError } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -17,6 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 export class AccountService {
 
   private baseUrl: string = 'https://rentmovievanzappapi.azurewebsites.net/api/';
+  //private baseUrl: string = 'https://localhost:7109/api/';
+  
   private currentTokenSource = new ReplaySubject<tokenModel>(1);
   currentToken$ = this.currentTokenSource.asObservable();
 
@@ -39,15 +39,14 @@ export class AccountService {
           localStorage.setItem('token', JSON.stringify(tokenModel));
           this.currentTokenSource.next(tokenModel);
         }
-      }),
-      catchError((err) => {
-        console.log(err);
-        this.toastr.error(err.message, "Error");
-        return EMPTY;
       })
     );
   }
 
+  register(userModel: userModel) {
+    return this.http.post(this.baseUrl + 'Authenticate/register', userModel)
+  }
+  
   logout() {
     localStorage.removeItem('token');
     this.currentTokenSource.next(null);

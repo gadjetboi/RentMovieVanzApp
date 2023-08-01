@@ -1,3 +1,4 @@
+using API.Entities;
 using API.Helpers;
 using API.Models;
 using Microsoft.AspNetCore.Identity;
@@ -52,7 +53,8 @@ namespace API.Controllers
                     return Ok(new
                     {
                         token = new JwtSecurityTokenHandler().WriteToken(token),
-                        expiration = token.ValidTo
+                        expiration = token.ValidTo,
+                        AppUser = user
                     });
                 }
                 return Unauthorized();
@@ -72,11 +74,13 @@ namespace API.Controllers
                 if (userExists != null)
                     return StatusCode(StatusCodes.Status500InternalServerError, new ResponseModel { Status = "Error", Message = "User already exists!" });
 
-                IdentityUser user = new()
+                AppUser user = new()
                 {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    UserName = model.Username,
                     Email = model.Email,
-                    SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = model.Username
+                    SecurityStamp = Guid.NewGuid().ToString()
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
