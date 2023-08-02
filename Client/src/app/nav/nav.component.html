@@ -1,14 +1,14 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/home">RentMovieVanzApp</a>
+          <a class="navbar-brand" routerLink="/home">RentMovieVanzApp</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" href="/home">Movies</a>
+                <a class="nav-link" routerLink="/home">Movies</a>
               </li>
               <ng-container *ngIf="(currentToken$ | async ) === null">
                 <li class="nav-item">
