@@ -23,8 +23,9 @@ namespace API.Controllers
                                      orderby u.FirstName
                                      select new UserModel()
                                      {
-                                         Id = u.Id,
-                                         FirstName = u.FirstName
+                                         FirstName = u.FirstName,
+                                         LastName = u.LastName,
+                                         UserName = u.UserName
                                      }).ToListAsync();
 
                 return results;
@@ -35,17 +36,18 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UserModel>> GetUser(int id) {
+        [HttpGet("{userName}")]
+        public async Task<ActionResult<UserModel>> GetUser(string userName) {
 
             try
             {
                 var result = await (from u in _dbContext.Users
-                                    where u.Id == id
+                                    where u.UserName == userName
                                     select new UserModel()
                                     {
-                                        Id = u.Id,
-                                        FirstName = u.FirstName
+                                        FirstName = u.FirstName,
+                                        LastName = u.LastName,
+                                        UserName = u.UserName
                                     }).FirstOrDefaultAsync();
 
                 return result;

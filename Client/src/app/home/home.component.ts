@@ -15,9 +15,7 @@ export class HomeComponent implements OnInit {
   constructor(private movieService: MovieService) { }
 
   ngOnInit(): void {
-    // this.movieService.getMovies().subscribe({
-    //   next: data => this.moviesSection1 = data
-    // })
+    
    this.movieService.getMovies().pipe(
       map((movies: MovieModel[]) => {
           if (movies.length > 4) {
@@ -46,7 +44,7 @@ export class HomeComponent implements OnInit {
       })
     ).subscribe({
       next: (data) => { 
-        this.moviesSection3 = data; console.log(this.moviesSection3);
+        this.moviesSection3 = data;
       }
     });
     

@@ -1,8 +1,10 @@
+using API.Auth;
 using API.Entities;
 using API.Helpers;
 using API.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -13,15 +15,18 @@ namespace API.Controllers
     
     public class AuthenticateController : APIBaseController
     {
+        private readonly ApplicationDbContext _dbContext;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
         public AuthenticateController(
+            ApplicationDbContext dbContext,
             UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager,
             IConfiguration configuration)
         {
+            _dbContext = dbContext;
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
@@ -37,7 +42,7 @@ namespace API.Controllers
                 {
                     var userRoles = await _userManager.GetRolesAsync(user);
 
-                    var authClaims = new List<Claim>
+                var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
@@ -47,14 +52,26 @@ namespace API.Controllers
                     {
                         authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                     }
-
                     var token = GetToken(authClaims);
+
+                    var userInfo = await (from u in _dbContext.Users
+                                        where u.UserName == user.UserName
+                                        select new UserModel()
+                                        {
+                                            FirstName = u.FirstName,
+                                            LastName = u.LastName,
+                                            UserName = u.UserName
+                                        }).FirstOrDefaultAsync();
 
                     return Ok(new
                     {
                         token = new JwtSecurityTokenHandler().WriteToken(token),
                         expiration = token.ValidTo,
-                        AppUser = user
+                        AppUser = new UserModel { 
+                            FirstName = userInfo.FirstName,
+                            LastName = userInfo.LastName,
+                            UserName = userInfo.UserName
+                        }
                     });
                 }
                 return Unauthorized();

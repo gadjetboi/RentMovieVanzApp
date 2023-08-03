@@ -18,6 +18,9 @@ import { DetailComponent } from './detail/detail.component';
 import { VideogularComponent } from './_common/videogular/videogular.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpErrorInterceptor } from './_interceptor/http-error-interceptor';
+import { StoreModule } from '@ngrx/store';
+import { memberReducer } from './_manageState/_reducers/member.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
 @NgModule({
@@ -39,7 +42,13 @@ import { HttpErrorInterceptor } from './_interceptor/http-error-interceptor';
     FormsModule,
     SharedModule,
     VgCoreModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    StoreModule.forRoot({
+      member: memberReducer
+    }),
+    StoreDevtoolsModule.instrument({ 
+      maxAge: 10
+    })
   ],
   providers: [{ 
     provide: HTTP_INTERCEPTORS, 

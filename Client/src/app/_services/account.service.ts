@@ -28,7 +28,7 @@ export class AccountService {
 
   login(userModel: userModel) {
    
-    if(userModel.username == "" && userModel.password == "") {
+    if(userModel.userName == "" && userModel.password == "") {
       this.toastr.error("Username and Password are Required!", "Error");
       return;
     }
@@ -39,6 +39,7 @@ export class AccountService {
           localStorage.setItem('token', JSON.stringify(tokenModel));
           this.currentTokenSource.next(tokenModel);
         }
+        return tokenModel.appUser;
       })
     );
   }
