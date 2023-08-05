@@ -6,9 +6,13 @@
     scroll-behavior: smooth; 
     margin: 0;
     background-color: #000;
-    font-family: Arial; 
-
+    font-family: Arial;
 }
+
+.movie_carousel_wrapper {
+  padding-top: 10px;
+}
+
 html {
     scroll-behavior: smooth; 
 }

@@ -51,4 +51,9 @@ export class DetailComponent implements OnInit {
   setShowTrailer(isStopVideo: boolean):void{
     this.showTrailer = (isStopVideo == true) ? false : true;
   }
+
+  rent()
+  {
+    this.toastr.info("Development is still in progress...");
+  }
 }
