@@ -1,10 +1,13 @@
-
-
 <div class="movie_main">
-  <div class="movie_carousel_wrapper">
 
+  <ng-template #section1Loading></ng-template>
+  <ng-template #section2Loading></ng-template>
+  <ng-template #section3Loading></ng-template>
+
+  <div class="movie_carousel_wrapper">
     <h1 class="margin_top_75">New Releases</h1>
     <div class="wrapper">
+      
       <section id="section1">
         <a href="#section3" class="arrow__btn left-arrow">‹</a>
         <div class="item" *ngFor="let movie of moviesSection1;">
@@ -42,3 +45,21 @@
         <a href="#section1" class="arrow__btn right-arrow">›</a>
       </section>
     </div>
+
+    <ngx-loading
+        [show]="loadingSection1"
+        [config]="{ backdropBorderRadius: '3px' }"
+        [template]="section1Loading"
+    ></ngx-loading>
+
+    <ngx-loading
+        [show]="loadingSection2"
+        [config]="{ backdropBorderRadius: '3px' }"
+        [template]="section2Loading"
+    ></ngx-loading>
+
+    <ngx-loading
+        [show]="loadingSection3"
+        [config]="{ backdropBorderRadius: '3px' }"
+        [template]="section3Loading"
+    ></ngx-loading>

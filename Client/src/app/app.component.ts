@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { tokenModel } from './_models/tokenModel';
 import { AccountService } from './_services/account.service';
 
@@ -11,7 +11,7 @@ import { AccountService } from './_services/account.service';
 export class AppComponent implements OnInit {
 
  title: string = 'RentMovieVanzApp';
-
+ 
  constructor(private http: HttpClient, private accountService: AccountService) {}
   
   ngOnInit(): void {

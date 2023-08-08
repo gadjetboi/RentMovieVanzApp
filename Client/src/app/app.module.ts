@@ -21,6 +21,7 @@ import { HttpErrorInterceptor } from './_interceptor/http-error-interceptor';
 import { StoreModule } from '@ngrx/store';
 import { memberReducer } from './_manageState/_reducers/member.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { NgxLoadingModule } from "ngx-loading";
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     }),
     StoreDevtoolsModule.instrument({ 
       maxAge: 10
-    })
+    }),
+    NgxLoadingModule.forRoot({})
   ],
   providers: [{ 
     provide: HTTP_INTERCEPTORS, 
