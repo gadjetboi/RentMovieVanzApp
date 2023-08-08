@@ -22,6 +22,8 @@ import { StoreModule } from '@ngrx/store';
 import { memberReducer } from './_manageState/_reducers/member.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NgxLoadingModule } from "ngx-loading";
+import { CartComponent } from './_common/cart/cart.component';
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { NgxLoadingModule } from "ngx-loading";
     RegisterComponent,
     MemberComponent,
     DetailComponent,
-    VideogularComponent
+    VideogularComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,7 @@ import { NgxLoadingModule } from "ngx-loading";
     SharedModule,
     VgCoreModule,
     ReactiveFormsModule,
+    MatTableModule,
     StoreModule.forRoot({
       member: memberReducer
     }),

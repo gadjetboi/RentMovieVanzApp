@@ -7,12 +7,14 @@ import { HomeComponent } from './home/home.component';
 import { MemberComponent } from './member/member.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { CartComponent } from './_common/cart/cart.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'member', component: MemberComponent, canActivate: [AuthGuard]},
   { path: 'aboutus', component: AboutusComponent},
   { path: 'register', component: RegisterComponent },
+  { path: 'cart', component: CartComponent },
   { path: 'detail/:id', component: DetailComponent },
   { path: '**', component: HomeComponent }
 ];

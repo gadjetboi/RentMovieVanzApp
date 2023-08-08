@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MovieModel } from '../_models/movieModel';
 import { MovieService } from '../_services/movie.service';
 
-import { map, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { ToastrService } from 'ngx-toastr';
 

@@ -23,6 +23,11 @@
               <li class="nav-item">
                 <a class="nav-link" routerLink="/aboutus">Developer</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/cart">
+                  <span class="material-icons-outlined">shopping_cart</span>   
+                </a>
+              </li>
               <li *ngIf="(currentToken$ | async )" class="nav-item">
                 <a class="nav-link" (click)="logout()" href="#">Logout</a>
               </li>
