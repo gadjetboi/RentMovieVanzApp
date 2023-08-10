@@ -7,5 +7,6 @@
         public string Description { get; set; }
         public string MainPhotoPath { get; set; }
         public string TrailerPath { get; set; }
+        public decimal Price { get; set; }
     }
 }

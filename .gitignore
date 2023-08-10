@@ -454,3 +454,6 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 appsettings.json
+/.vscode/extensions.json
+/API/Properties/ServiceDependencies/RentMovieVanzAppAPI - Web Deploy/profile.arm.json
+/API/Properties/ServiceDependencies/RentMovieVanzAppAPI - Zip Deploy/profile.arm.json

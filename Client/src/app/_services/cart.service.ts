@@ -1,55 +1,39 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Cart } from '../_models/cart';
+import { CartModel } from '../_models/cartModel';
+import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService implements OnInit {
 
-  carts: Cart[] = [];
+  carts: CartModel[] = [];
   
-  constructor() { 
-    this.carts.push
-    (
-      {
-        title: "Movie1",
-        description: "Movie1Description1",
-        mainPhoto: "https://res.cloudinary.com/dxlzpiz28/image/upload/v1689902723/MoviePicture/johnwick4_rwycof.webp",
-        price: 3.0
-      },
-      {
-        title: "Movie2",
-        description: "Movie1Description2",
-        mainPhoto: "https://res.cloudinary.com/dxlzpiz28/image/upload/v1689546610/MoviePicture/mario_q9gggm.webp",
-        price: 2.20
-      }
-    )
+  private baseUrl: string = 'https://rentmovievanzappapi.azurewebsites.net/api/';
+  //private baseUrl: string = 'https://localhost:7109/api/';
+
+  constructor(private http: HttpClient, private toastr: ToastrService) { 
+
   }
 
   ngOnInit(): void {
    
   }
 
-  getCarts(): Cart[]
+  getCarts()
   {
-    return this.carts;
+    return this.http.get<CartModel[]>(this.baseUrl + 'Carts');
   }
   
-  addToCart(cart: Cart)
+  addToCart(cart: CartModel)
   {
-    this.carts.push(cart);
+    return this.http.post<CartModel[]>(this.baseUrl + 'Carts/add-cart', cart);
   }
 
-  removeFromCart(cart: Cart) : Cart[] 
+  removeFromCart(cart: CartModel)
   {
-    const index = this.carts.indexOf(cart);
-    
-    if (index > -1) 
-    { 
-      this.carts.splice(index, 1);
-    }
-
-    return this.carts;
+    return this.http.post<CartModel[]>(this.baseUrl + 'Carts/remove-cart', cart);
   }
 
 }

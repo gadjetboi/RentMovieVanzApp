@@ -33,7 +33,7 @@
       
     <ng-container matColumnDef="totalPrice">
       <td class="footer" colspan="5" mat-footer-cell *matFooterCellDef>
-        <span><button class="btn btn-outline-success">Checkout Total: {{totalPrice | currency}}</button></span>
+        <span><button (click)="checkOut()" class="btn btn-outline-success">Checkout Total: {{totalPrice | currency}}</button></span>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

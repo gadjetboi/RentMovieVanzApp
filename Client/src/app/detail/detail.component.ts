@@ -6,8 +6,8 @@ import { MovieService } from '../_services/movie.service';
 import { map } from 'rxjs/operators';
 
 import { ToastrService } from 'ngx-toastr';
-
-
+import { CartService } from '../_services/cart.service';
+import { CartModel } from '../_models/cartModel';
 
 @Component({
   selector: 'app-detail',
@@ -21,7 +21,10 @@ export class DetailComponent implements OnInit {
   showTrailer: boolean = false;
   isTrailerClose: boolean;
 
-  constructor(private route: ActivatedRoute, private router: Router, private movieService: MovieService, private toastr: ToastrService) { }
+  constructor(private route: ActivatedRoute, private router: Router, 
+    private movieService: MovieService,
+    private cartService: CartService, 
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
@@ -29,13 +32,13 @@ export class DetailComponent implements OnInit {
     
      this.movieService.getMovieById(id)
      .pipe(
-        map((data) => { /* USE map if need to overwrite the data or transform it. data.title = data.title + "TEST";*/
-            return data;
+        map((movie) => { /* USE map if need to overwrite the data or transform it. data.title = data.title + "TEST";*/
+            return movie;
         })
      )
      .subscribe({
-        next: (data: MovieModel) => {
-          this.movie = data;
+        next: (movie: MovieModel) => {
+          this.movie = movie;
           this.isContentAvailable = true;
         },
         error: () => {
@@ -54,6 +57,22 @@ export class DetailComponent implements OnInit {
 
   rent()
   {
-    this.toastr.info("Development is still in progress...");
+    let cart: CartModel= {
+                  title: this.movie.title,
+                  description: this.movie.description,
+                  mainPhoto: this.movie.mainPhotoPath,
+                  price: this.movie.price
+              };
+
+    this.cartService.addToCart(cart)
+      .subscribe({
+          next: () => {
+            this.toastr.info(cart.title + " Added to Cart!", "Success");
+            this.router.navigate(['/cart']);
+          },
+          error: () => {
+            this.router.navigate(['/cart']); /* TODO: Redirect to error page*/
+          }
+      });
   }
 }

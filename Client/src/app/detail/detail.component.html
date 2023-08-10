@@ -18,11 +18,12 @@
                     <div class="summary">
                         <h2 class="display-5 fw-bold">Summary</h2>
                         <div class="content">{{movie.description}}</div>
+                        <h2 class="display-5 fw-bold">Price</h2>
+                        <div class="content">{{movie.price | currency}}</div>
                     </div>
                     <button class="btn btn btn-dark btn-md" (click)="watchTrailer()">Watch Trailer</button>
                     <button class="btn btn btn-dark btn-md" (click)="rent()">RENT</button>
                     <button routerLink="/home" class="btn btn btn-dark btn-md">Back</button>
-                   
                 </div>
             </div>
         </div>

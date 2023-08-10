@@ -1,4 +1,4 @@
-export interface Cart {
+export interface CartModel {
     title: string,
     description: string,
     mainPhoto: string,
