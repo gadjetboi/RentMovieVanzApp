@@ -9,14 +9,15 @@ import { MemberModel } from '../_manageState/_stateModels/memberModel';
 import { Store } from '@ngrx/store';
 import { AppState } from '../_models/appStateModel';
 
+
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 
-export class NavComponent implements OnInit {
-  
+export class LoginComponent implements OnInit {
+
   member: Observable<MemberModel>;
   currentToken$: Observable<tokenModel>;
   userModel: userModel = {} as userModel;
@@ -34,25 +35,17 @@ export class NavComponent implements OnInit {
   }
 
   login() {
+    console.log(this.userModel);
      this.accountService.login(this.userModel).subscribe(response => {
         this.store.dispatch({ type: 'LOGIN', payload: response.userName });
         this.toastr.success('Log In Successfully', 'Successful');
         this.clearLoginForm();    
         this.router.navigate(['/member']);
      });
-  }
-
-  logout() {
-    this.store.dispatch({ type: 'LOGIN', payload: ''});
-    this.accountService.logout();
-    this.clearLoginForm();
-    this.toastr.success('Log Out', 'Successful');
-    this.router.navigate(['/home']);
-  }
+  } 
 
   clearLoginForm() {
     this.userModel.userName = '';
     this.userModel.password = '';
   }
-  
 }

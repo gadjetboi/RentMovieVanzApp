@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
           this.usermodel = data;
           this.registrationForm.reset();
           this.toastr.info("Registration Successful!", "Success");
-          this.router.navigate(['/member']);
+          this.router.navigate(['/login ']);
         }
       });
     }

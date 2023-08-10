@@ -24,7 +24,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NgxLoadingModule } from "ngx-loading";
 import { CartComponent } from './_common/cart/cart.component';
 import {MatTableModule} from '@angular/material/table';
+import { LoginComponent } from './login/login.component';
 
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,8 @@ import {MatTableModule} from '@angular/material/table';
     MemberComponent,
     DetailComponent,
     VideogularComponent,
-    CartComponent
+    CartComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +60,8 @@ import {MatTableModule} from '@angular/material/table';
     StoreDevtoolsModule.instrument({ 
       maxAge: 10
     }),
-    NgxLoadingModule.forRoot({})
+    NgxLoadingModule.forRoot({}),
+    MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule
   ],
   providers: [{ 
     provide: HTTP_INTERCEPTORS, 
